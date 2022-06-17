@@ -19,7 +19,7 @@ const Home = () => {
     return (
         <main className={styles.home}>
             <Code setCode={setCode} defaultCode={defCode}/>
-            <Display width={800} height={700} code={code} />
+            <Display width={800} height={600} fragSource={code} />
         </main>
     )
 }

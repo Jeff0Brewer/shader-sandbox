@@ -81,9 +81,9 @@ float cnoise(vec3 P){
 }
 
 float noise(vec3 coord, float scale, vec2 offset) {
-    return cnoise(vec3(coord.xy + offset, coord.z)*scale);
+    return cnoise(vec3(coord.xy*scale + offset, coord.z));
 }
 
 float noise(vec3 coord, float scale) {
-    return cnoise(vec3(coord.xy, coord.z)*scale);
+    return cnoise(vec3(coord.xy*scale, coord.z));
 }
