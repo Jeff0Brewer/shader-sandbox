@@ -7,26 +7,16 @@ const Display = props => {
     const errLogRef = useRef(null)
     const frameIdRef = useRef(null)
 
-    let gl, vertSource, fragLib, glBuffer, aPosition, uDimensions, uTime;
-    const glu = new GlUtil()
+    let gl, glu, vertSource, fragLib, glBuffer, aPosition, uDimensions, uTime;
     const buffer = new Float32Array([-1, -1, -1, 1, 1, -1, 1, 1])
     const fsize = buffer.BYTES_PER_ELEMENT
-    const fragTEST_ONLY = `
-        uniform vec2 uDimensions;
-        uniform float uTime;
-        void main() {
-            vec3 coord = vec3(gl_FragCoord.xy/uDimensions, uTime);
-
-            vec3 col = vec3(0.0, 0.0, 0.0);
-            col.x += noise(coord, 1.0);
-            col.y += noise(coord, 1.0, vec2(-1.0, 1.0));
-            col.z += noise(coord, 1.0, vec2(1.0, -1.0));
-            gl_FragColor = vec4(col, 1.0);
-        }
-    `
 
     const requestFrame = func => {
         frameIdRef.current = window.requestAnimationFrame(func)
+    }
+    
+    const cancelFrame = () => {
+        window.cancelAnimationFrame(frameIdRef.current)
     }
 
     const draw = time => {
@@ -46,9 +36,9 @@ const Display = props => {
 
     const initGl = async () => {
         vertSource = await (await fetch('./vert.glsl')).text()
-        fragLib = await( await fetch('./fragLib.glsl')).text()
-
-        gl = glu.setupGl(canvRef.current, [vertSource, fragLib + fragTEST_ONLY])
+        fragLib = await( await fetch('./fraglib.glsl')).text()
+        glu = new GlUtil()
+        gl = glu.setupGl(canvRef.current, [vertSource, fragLib + props.fragSource])
         glBuffer = glu.initBuffer(buffer, gl.STATIC_DRAW)
         aPosition = glu.initAttribute('aPosition', 2, 2, 0, fsize)
 
@@ -63,9 +53,9 @@ const Display = props => {
         requestFrame(draw)
         
         return () => {
-            window.cancelAnimationFrame(frameIdRef.current)
+            cancelFrame()
         }
-    }, [])
+    }, [props.fragSource])
 
     return (
         <section className={styles.display}>
