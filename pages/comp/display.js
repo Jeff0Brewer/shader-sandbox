@@ -76,9 +76,9 @@ const Display = props => {
                 </div>
                 <div className={styles.controls}>
                     <span> 
-                        <input type="text" value={props.width}/> 
+                        <input type="text" defaultValue={props.width}/> 
                         x
-                        <input type="text" value={props.height}/> 
+                        <input type="text" defaultValue={props.height}/> 
                     </span>
                     <button>fullscreen</button>
                 </div>      
