@@ -2,6 +2,6 @@
     grid-area: disp;
 }
 
-.display > canvas {
-    background-color: #f0f;
+.display canvas {
+    background-color: #000;
 }

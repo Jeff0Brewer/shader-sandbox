@@ -1,4 +1,4 @@
-import Display from '../comp/display.js'
+import Display from './comp/display.js'
 import styles from '../styles/Home.module.css'
 
 const Home = () => {
