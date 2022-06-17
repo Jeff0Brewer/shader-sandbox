@@ -1,0 +1,7 @@
+.display {
+    grid-area: disp;
+}
+
+.display > canvas {
+    background-color: #f0f;
+}
