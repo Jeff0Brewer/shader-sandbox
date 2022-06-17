@@ -1,7 +1,29 @@
 .display {
     grid-area: disp;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.display canvas {
-    background-color: #000;
+.display > div {
+    display: grid;
+    grid-template-areas: "view" "controls";
+}
+
+.view {
+    grid-area: view;
+}
+
+.controls {
+    grid-area: controls;
+    display: flex;
+    justify-content: right;
+}
+
+.controls > * {
+    margin: 0 5px;
+}
+
+.controls input {
+    width: 75px;
 }
